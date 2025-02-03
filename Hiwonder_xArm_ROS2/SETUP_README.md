@@ -10,18 +10,18 @@ The development environment used for this was the VS Code IDE with the [Platform
 
 
 ## ROS2 & Micro-ROS
-The communication from the host machine to the ESP32 is done using micro-ROS and ROS2 nodes. [ROS2 Humble Hawksbill](https://docs.ros.org/en/humble/index.html) due to its its distant EOL.
-For the install of ROS2 Humble, one should ensure that the host machine is running [Ubuntu 22.04](https://releases.ubuntu.com/jammy/), 
-and then refer to the Ubuntu (Debian) install page [here](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html). It is then recommended that the user looks at some of 
-the tutorials, particularly if they have no previous experience with ROS2. It is suggusted that the user at least skims over the tutorials [configuring environment](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html) and [creating a workspace](https://github.com/migsdigs/Hiwonder_xArm_ESP32/edit/main/Hiwonder_xArm_ROS2/SETUP_README.md#creating-the-ros2-workspace) (please refer to this below), as it might effect the micro-ROS installation later on.
+The communication from the host machine to the ESP32 is done using micro-ROS and ROS2 nodes. [ROS2 Jazzy](https://docs.ros.org/en/jazzy/index.html) due to its its distant EOL.
+For the install of ROS2 Jazzy, one should ensure that the host machine is running [Ubuntu 24.04](https://releases.ubuntu.com/noble/), 
+and then refer to the Ubuntu (Debian) install page [here](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html). It is then recommended that the user looks at some of 
+the tutorials, particularly if they have no previous experience with ROS2. It is suggusted that the user at least skims over the tutorials [configuring environment](https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html) and [creating a workspace](https://github.com/migsdigs/Hiwonder_xArm_ESP32/edit/main/Hiwonder_xArm_ROS2/SETUP_README.md#creating-the-ros2-workspace) (please refer to this below), as it might effect the micro-ROS installation later on.
 When configuring the environment it is important to set the `ROS_DOMAIN_ID` to 0, and to ignore the setting of the `ROS_LOCAL_HOST` environment variable, as this will avoid conflicts with micro-ROS.
 
 ### Creating the ROS2 Workspace
-Once the ROS2 installation is complete, one should create a workspace. For more detailed ROS instructions, please click [here](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html). Otherwise, proceed with the following:
+Once the ROS2 installation is complete, one should create a workspace. For more detailed ROS instructions, please click [here](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html). Otherwise, proceed with the following:
 
 Source ROS2 environment:
 ```bash
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 ```
 
 Create the new directory:
@@ -55,7 +55,7 @@ Having ensured that micro-ROS is successfully installed, we will configure it fo
 
 ```bash
 # Source the ROS 2 installation
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 # Create a workspace and download the micro-ROS tools
 mkdir esp32_microros_ws
 cd esp32_microros_ws
@@ -108,7 +108,7 @@ monitor_speed = 115200
 lib_deps = 
     madhephaestus/lx16a-servo@^0.9.3
     https://github.com/micro-ROS/micro_ros_platformio
-board_microros_distro = humble
+board_microros_distro = jazzy
 board_microros_transport = serial
 ```
 
@@ -128,7 +128,7 @@ lib_deps =
     https://github.com/micro-ROS/micro_ros_platformio
 ```
 
-In the terminal again, ensure that ROS is not sourced i.e. `source /opt/ros/humble/setup.bash` is not called in the terminal or in `~/.bashrc`, and run the following, ensure it is successful:
+In the terminal again, ensure that ROS is not sourced i.e. `source /opt/ros/jazzy/setup.bash` is not called in the terminal or in `~/.bashrc`, and run the following, ensure it is successful:
 ```console
 pio lib install # Install dependencies
 pio run # Build the firmware
@@ -143,7 +143,7 @@ pio run --target clean_microros  # Clean library
 Micro-ROS dependencies should now be added to the PlatformIO environment.
 If you have not done so already, you can now add ROS sourcing to the `~/.bashrc` file with:
 ```bash
-echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 ```
 
 ---
@@ -177,7 +177,7 @@ sudo usermod -aG dialout <username>    # <username> is your username
 ```
 
 ### 2. Micro-ROS - ROS2 conflict
-After installing ROS2, one of the recommended tutorials is [configuring environment](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html). This sees the setting of a number of environment variables which lead to conflicts when installing micro-ROS, see [github issue](https://github.com/micro-ROS/micro-ROS-demos/issues/78). If you are experiencing issues with communicating with micro-ROS agents, the setting of these environment variables is a possible cause.
+After installing ROS2, one of the recommended tutorials is [configuring environment](https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html). This sees the setting of a number of environment variables which lead to conflicts when installing micro-ROS, see [github issue](https://github.com/micro-ROS/micro-ROS-demos/issues/78). If you are experiencing issues with communicating with micro-ROS agents, the setting of these environment variables is a possible cause.
 
 ### 3. Servos not moving (LX-16a Servo Library & ESP32 Toolchain)
 The open source drivers for the Hiwonder servos are written to work for older versions of the ESP espressif toolchain. Later versions, for example espressif@4.0.0 which was released with the ESP32-DevKitC dev board, do not work with these drivers and you will experience read/write errors when trying to communicate with the servos. To ensure this does not occur please set up your `.ini` file as follows:
@@ -193,7 +193,7 @@ monitor_speed = 115200
 lib_deps = 
     madhephaestus/lx16a-servo@^0.9.3
     https://github.com/micro-ROS/micro_ros_platformio
-board_microros_distro = humble
+board_microros_distro = jazzy
 board_microros_transport = serial
 ```
 
