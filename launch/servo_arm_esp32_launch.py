@@ -8,7 +8,7 @@ def generate_launch_description():
             executable='micro_ros_agent',
             name='micro_ros_agent',
             output='screen',
-            arguments=["serial", "--dev", "/dev/ttyUSB0", "-v6"]
+            arguments=["serial", "--dev", "/dev/hiwonder_arm", "-v6"]
         ),
         Node(
             package='arm_servos_pubs_subs',
